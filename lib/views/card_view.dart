@@ -7,7 +7,7 @@ class CardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width - 50;
+    double width = MediaQuery.of(context).size.width - 20;
     return Image(
       image: cardImage,
       width: width,

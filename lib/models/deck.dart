@@ -19,7 +19,7 @@ class Deck {
   }
 
   Deck() {
-    newPlayingDeck();
+    _playingDeck = [];
   }
 
   bool isPlayingDeckEmpty() {
@@ -33,7 +33,6 @@ class Deck {
 
   String drawCard() {
   if (this.isPlayingDeckEmpty()) {
-    print("Deck was empty");
     return "";
   }
   String firstElement = this._playingDeck[0];
