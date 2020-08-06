@@ -9,10 +9,33 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  LazySorryViewModel _lsvm;
+  LazySorryViewModel _lsvm = LazySorryViewModel();
+
+  Text cardsLeftText() {
+    return Text(
+      _lsvm.deck.numPlayingCardsLeft().toString() + ' cards left until shuffle',
+      style: TextStyle(color: Colors.white, fontSize: 24),
+    );
+  }
+
+  AssetImage getCard(String card) {
+    return AssetImage('assets/cards/' + card + '.png');
+  }
 
   List<Widget> cardStack() {
-
+    List<Widget> cards = _lsvm.drawnCards.map((card) => Container(child: DraggableCardView(getCard(card)))).toList();
+    Widget topCard = Container(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            _lsvm.drawCardTrigger();
+          });
+        },
+        child: DraggableCardView(getCard(_lsvm.topCard))
+      ),
+    );
+    cards.add(topCard);
+    return cards;
   }
 
   @override
@@ -23,25 +46,14 @@ class _MainViewState extends State<MainView> {
         children: [
           Center(
             child: Stack(
-              children: [
-                DraggableCardView(AssetImage('assets/cards/' + 'back_of_card' + '.png')),
-                DraggableCardView(AssetImage('assets/cards/' + '1' + '.png')),
-                DraggableCardView(AssetImage('assets/cards/' + '2' + '.png')),
-                DraggableCardView(AssetImage('assets/cards/' + '3' + '.png')),
-                DraggableCardView(AssetImage('assets/cards/' + '5' + '.png')),
-                DraggableCardView(AssetImage('assets/cards/' + '7' + '.png')),
-                DraggableCardView(AssetImage('assets/cards/' + '8' + '.png')),
-              ],
+              children: cardStack(),
             ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.all(20),
-              child: Text(
-                '0 cards left until shuffle',
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
+              child: cardsLeftText(),
             )
           )
         ],
