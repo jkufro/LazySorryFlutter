@@ -13,7 +13,6 @@ class LazySorryViewModel {
   int lastDraw = (new DateTime.now()).millisecondsSinceEpoch;
 
   LazySorryViewModel() {
-    AudioPlayer.logEnabled = true;
     this.deck = Deck();
     this.drawnCards = [
       "back_of_card", "back_of_card", "back_of_card", "back_of_card",
@@ -54,6 +53,13 @@ class LazySorryViewModel {
   }
 
   void playDrawSound() async {
-    audioPlayer.play('sounds/pickup_1.mp3');
+    List<String> options = [
+      "pickup_3",
+      "pickup_4",
+      "pickup_5",
+      "pickup_6",
+    ];
+    options.shuffle();
+    audioPlayer.play('sounds/' + options[0] +'.mp3');
   }
 }
