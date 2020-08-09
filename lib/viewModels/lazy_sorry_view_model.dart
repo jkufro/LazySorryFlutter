@@ -17,10 +17,10 @@ class LazySorryViewModel {
   }
 
 
-  void drawCardTrigger() {
+  bool drawCardTrigger() {
     if (!this.isDrawCooledDown()) {
       // should vibrate the phone to indicate cooldown not ready yet
-      return;
+      return false;
     }
 
     // make sure the deck is not empty
@@ -36,6 +36,7 @@ class LazySorryViewModel {
     this.topCard = this.deck.drawCard();
     this.drawnCards.removeAt(0);
     this.lastDraw = (new DateTime.now()).millisecondsSinceEpoch;
+    return true;
   }
 
   bool isDrawCooledDown() {
