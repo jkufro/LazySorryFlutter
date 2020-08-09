@@ -1,14 +1,19 @@
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import '../models/deck.dart';
+
 
 class LazySorryViewModel {
   static final int drawCooldown = 750;
 
+  AudioCache audioPlayer = AudioCache();
   Deck deck;
   String topCard = "back_of_card";
   List<String> drawnCards;
   int lastDraw = (new DateTime.now()).millisecondsSinceEpoch;
 
   LazySorryViewModel() {
+    AudioPlayer.logEnabled = true;
     this.deck = Deck();
     this.drawnCards = [
       "back_of_card", "back_of_card", "back_of_card", "back_of_card",
@@ -44,11 +49,11 @@ class LazySorryViewModel {
   }
 
   // https://www.hackingwithswift.com/example-code/media/how-to-play-sounds-using-avaudioplayer
-  void playShuffleSound() {
-    return;
+  void playShuffleSound() async {
+    audioPlayer.play('sounds/shuffle_1.mp3');
   }
 
-  void playDrawSound() {
-    return;
+  void playDrawSound() async {
+    audioPlayer.play('sounds/pickup_1.mp3');
   }
 }
