@@ -31,10 +31,6 @@ class _TopCardState extends State<TopCardView> with TickerProviderStateMixin {
     super.initState();
 
     _controller = new AnimationController(duration: duration, vsync: this)
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {}
-        if (status == AnimationStatus.dismissed) {}
-      })
       ..addListener(() {
         setState(() {});
       });
