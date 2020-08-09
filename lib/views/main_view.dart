@@ -6,6 +6,12 @@ import 'deck_view.dart';
 import 'draggable_card_view.dart';
 
 class MainView extends StatefulWidget {
+  @override
+  _MainViewState createState() => _MainViewState();
+}
+
+class _MainViewState extends State<MainView> {
+  LazySorryViewModel _lsvm = LazySorryViewModel();
   Map<String, AssetImage> cardImageMap = {
     '1': AssetImage('assets/cards/' + '1' + '.png'),
     '2': AssetImage('assets/cards/' + '2' + '.png'),
@@ -21,13 +27,6 @@ class MainView extends StatefulWidget {
     'sorry': AssetImage('assets/cards/' + 'sorry' + '.png'),
   };
 
-  @override
-  _MainViewState createState() => _MainViewState();
-}
-
-class _MainViewState extends State<MainView> {
-  LazySorryViewModel _lsvm = LazySorryViewModel();
-
   AutoSizeText cardsLeftText() {
     // https://pub.dev/packages/auto_size_text
     return AutoSizeText(
@@ -38,7 +37,7 @@ class _MainViewState extends State<MainView> {
   }
 
   AssetImage getCard(String card) {
-    return widget.cardImageMap[card];
+    return cardImageMap[card];
     return AssetImage('assets/cards/' + card + '.png');
   }
 
@@ -59,6 +58,7 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(

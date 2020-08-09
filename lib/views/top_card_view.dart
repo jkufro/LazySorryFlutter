@@ -8,6 +8,7 @@ class TopCardView extends StatefulWidget {
   final AssetImage cardImage;
   final bool Function() _onTap;
 
+  // https://stackoverflow.com/questions/50625777/how-to-pass-callback-in-flutter
   TopCardView(this.cardImage, this._onTap);
 
   @override
@@ -29,7 +30,14 @@ class _TopCardState extends State<TopCardView> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    _controller = new AnimationController(duration: duration, vsync: this);
+    _controller = new AnimationController(duration: duration, vsync: this)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {}
+        if (status == AnimationStatus.dismissed) {}
+      })
+      ..addListener(() {
+        setState(() {});
+      });
     _angleAnimation = Tween(begin: startAngle, end: endAngle).animate(_controller);
     _positionAnimation = Tween(begin: startOffset, end: endOffset).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
     _controller.forward();
